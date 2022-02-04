@@ -33,6 +33,7 @@ totalEmpHrs += empHrs;
 empDailyWageArr.push(calcDailyWage(empHrs));
 }
 
+let empWage = calcDailyWage(totalEmpHrs);
 let totalEmpWage = 0;
 function sum(dailyWage) {
     totalEmpWage += dailyWage;
@@ -59,3 +60,23 @@ function fullTimeWage(dailyWage) {
 }
 let fullDayWageArr = mapDayWithWageArr.filter(fullTimeWage);
 console.log("Daily Wage Filtered when fulltime wage earned: "+fullDayWageArr);
+
+function findFullTimeWage(dailyWage) {
+    return dailyWage.includes("160")
+}
+console.log("First full time wage was earned on day: "+mapDayWithWageArr.find(findFullTimeWage));
+
+function isAllFullTimeWage(dailyWage) {
+    return dailyWage.includes("160")
+}
+console.log("All elements having full time wage was earned : "+mapDayWithWageArr.every(isAllFullTimeWage));
+
+function isAnyPartTimeWage(dailyWage) {
+    return dailyWage.includes("80")
+}
+console.log("Part time wage was earned on day: "+mapDayWithWageArr.some(isAnyPartTimeWage));
+
+function totalDaysWorked(numOfDays, dailyWage) {
+    if (dailyWage>0) return numOfDays+1;
+    return numOfDays;
+}
