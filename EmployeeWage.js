@@ -14,9 +14,11 @@ switch (empCheck) {
         return 0;
     }
 }
-
+const NUM_OF_WORKING_DAYS = 20;
 let empHrs = 0;
+for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {
 empCheck = Math.floor(Math.random()*10)%3;
 empHrs = getWorkingHours(empCheck);
+}
 let empWage = empHrs * WAGE_PER_HOUR;
-console.log("Employee Wage: "+empWage);
+console.log("Total Employee worked hours: "+empHrs+" and Employee Wage is: "+empWage);
