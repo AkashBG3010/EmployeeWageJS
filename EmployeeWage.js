@@ -103,7 +103,7 @@ const findTotal = (totalVal, dailyVal) => {
     return totalVal + dailyVal;
 }
 let count = 0;
-let totalHoura = Array.from(empDailyHrsMap.values().reduce(findTotal, 0));
+let totalHours = Array.from(empDailyHrsMap.values().reduce(findTotal, 0));
 let totalSalary = empDailyWageArr.filter(dailyWage => dailyWage>0).reduce(findTotal,0);
 console.log("Employee Wage with Arrow: "+" Total Hours: "+totalHours+" Total Wages: "+totalSalary);
 
@@ -118,3 +118,25 @@ empDailyWageMap.forEach( (value, key, map) => {
 console.log("Full Working Days: "+fullWorkingDays);
 console.log("Part Working Days: "+partWorkingDays);
 console.log("Non Working Days: "+nonWorkingDays);
+
+let totalWages = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
+.reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage, 0);
+let totalHours = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
+.reduce((totalHours, dailyHrsAndWage) => totalHours += dailyHrsAndWage.dailyHours, 0);
+console.log("Total Hours: "+totalHours+" Total Wages: "+totalWages);
+
+process.stdout.write("Logging Full Working Days")
+empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8)
+.forEach(dailyHrsAndWage => process.stdout.write(dailyHrsAndWage.toString()));
+
+let partWorkingDayStrArr = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours ==4)
+.map(dailyHrsAndWage => dailyHrsAndWage.toString());
+console.log("Part-Time Working Days: "+partWorkingDayStrArr);
+
+let nonWorkingDayNums = empDailyHrsAndWageArr
+.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours ==0)
+.map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
+console.log("Non Working Days: "+nonWorkingDayNums);
