@@ -3,6 +3,8 @@ const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
 const FULL_TIME_HOURS = 8;
 const WAGE_PER_HOUR = 20;
+const MAX_HRS_IN_MONTH = 160;
+const NUM_OF_WORKING_DAYS = 20;
 
 function getWorkingHours(empCheck) {
 switch (empCheck) {
@@ -14,11 +16,11 @@ switch (empCheck) {
         return 0;
     }
 }
+
 function calcDailyWage(empHrs) {
     return empHrs*WAGE_PER_HOUR;
 }
-const MAX_HRS_IN_MONTH = 160;
-const NUM_OF_WORKING_DAYS = 20;
+
 let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let empDailyWageArr = new Array();
@@ -31,5 +33,29 @@ totalEmpHrs += empHrs;
 empDailyWageArr.push(calcDailyWage(empHrs));
 }
 
-let empWage = calcDailyWage(totalEmpHrs);
+let totalEmpWage = 0;
+function sum(dailyWage) {
+    totalEmpWage += dailyWage;
+}
+
+empDailyWageArr.forEach(sum);
 console.log("Total Employee worked days: "+totalWorkingDays+" and total worked hours: "+totalEmpHrs+" and the Wage is: "+empWage);
+
+function totalWages(totalWage, dailyWage) {
+    return totalWage + dailyWage;
+}
+console.log("Employee wage with reduce :"+empDailyWageArr.reduce(totalWages, 0));
+
+let dailyCntr = 0;
+function mapDayWithWage(dailyWage) {
+    dailyCntr++;
+    return dailyCntr +"="+ dailyWage;
+}
+let mapDayWithWageArr = empDailyWageArr.map(mapDayWithWage);
+console.log("Daily wage map: "+mapDayWithWageArr);
+
+function fullTimeWage(dailyWage) {
+    return dailyWage.includes("160");
+}
+let fullDayWageArr = mapDayWithWageArr.filter(fullTimeWage);
+console.log("Daily Wage Filtered when fulltime wage earned: "+fullDayWageArr);
